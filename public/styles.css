@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+body {
+    font-family: "Montserrat";
+    background-color: #EDEDED;
+    /* background: -webkit-linear-gradient(right, #EB8038, #F284FE); */
+}
+
+h1 {
+    background: -webkit-linear-gradient(right, #EB8038, #F284FE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
