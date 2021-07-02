@@ -9,7 +9,7 @@ export default function Navbar() {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link h4 mt-3" href="https://github.com/AdhyWiranto44/twice-api-server"><i class="fab fa-github"></i> Visit repo</a>
+                    <a class="nav-link h4 mt-3" href="https://github.com/AdhyWiranto44/twice-api-client"><i class="fab fa-github"></i> Visit repo</a>
                     <a class="nav-link h4 mt-3" href="http://www.adhywiranto.xyz/"><i class="fas fa-globe"></i> Visit my website</a>
                 </div>
             </div>

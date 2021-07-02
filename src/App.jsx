@@ -1,31 +1,73 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
-import Jumbotron from './components/Jumbotron';
-import Member from './components/Member';
+import MemberCard from './components/MemberCard';
+import DiscographyCard from './components/DiscographyCard';
 import axios from 'axios';
 
 function App() {
   let [members, setMembers] = useState("No data");
+  let [korean, setKorean] = useState("No data");
+  let [japanese, setJapanese] = useState("No data");
+  let [english, setEnglish] = useState("No data");
+  let [renderData, setRenderData] = useState("No data");
 
-  axios.get('http://twice-api.adhywiranto.xyz/api/members')
-  .then((response) => {
-    let data = response['data'];
-    setMembers(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  const getMembersData = () => {
+    axios.get('http://twice-api.adhywiranto.xyz/api/members')
+    .then((response) => {
+      let data = response['data'];
+      setMembers(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
-  return (
-    <div>
-      <Navbar />
-      <Jumbotron />
-      <div className="container mt-3">
+  const getKoreanData = () => {
+    axios.get('http://twice-api.adhywiranto.xyz/api/discography/korean')
+    .then((response) => {
+      let data = response['data'];
+      setKorean(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const getJapaneseData = () => {
+    axios.get('http://twice-api.adhywiranto.xyz/api/discography/japanese')
+    .then((response) => {
+      let data = response['data'];
+      setJapanese(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const getEnglishData = () => {
+    axios.get('http://twice-api.adhywiranto.xyz/api/discography/english')
+    .then((response) => {
+      let data = response['data'];
+      setEnglish(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+  
+  getMembersData();
+  getKoreanData();
+  getJapaneseData();
+  getEnglishData();
+
+  let renderMembers = () => {
+    setRenderData(() => {
+      return (
         <div className="row">
           <h3 className="fw-bold">Members</h3>
           {members['data'] && members['data'].map((member) => {
             return (
-                <Member
+                <MemberCard
                 name={member['name']}
                 img={member['img']}
                 nationality={member['nationality']}
@@ -34,6 +76,84 @@ function App() {
             })
           }
         </div>
+      );
+    });
+  }
+
+  let renderKoreanDiscography = () => {
+    setRenderData(() => {
+      return (
+        <div className="row">
+          <h3 className="fw-bold">Discography (Korean)</h3>
+          {korean['data'] && korean['data'].map((release) => {
+            return (
+              <DiscographyCard
+              title={release['title']}
+              img={release['img']}
+              releaseDate={release['release_date']} />
+            );
+          })}
+        </div>
+      );
+    })
+  }
+
+  let renderJapaneseDiscography = () => {
+    setRenderData(() => {
+      return (
+        <div className="row">
+          <h3 className="fw-bold">Discography (Japanese)</h3>
+          {japanese['data'] && japanese['data'].map((release) => {
+            return (
+              <DiscographyCard
+              title={release['title']}
+              img={release['img']}
+              releaseDate={release['release_date']} />
+            );
+          })}
+        </div>
+      );
+    })
+  }
+
+  let renderEnglishDiscography = () => {
+    setRenderData(() => {
+      return (
+        <div className="row">
+          <h3 className="fw-bold">Discography (English)</h3>
+          {english['data'] && english['data'].map((release) => {
+            return (
+              <DiscographyCard
+              title={release['title']}
+              img={release['img']}
+              releaseDate={release['release_date']} />
+            );
+          })}
+        </div>
+      );
+    })
+  }
+
+  return (
+    <div>
+      <Navbar />
+      <div className="container border-bottom pb-4">
+        <div className="row mt-4">
+          <div className="col-md-12 text-center">
+            <img src="./logo.png" alt="TWICE API" width="100" />
+            <h1 className="display-3 mt-3 fw-bold">TWICE API Client</h1>
+          </div>
+          <div className="col-md-12 text-center">
+            <p className="text-secondary h5 mb-3">Get TWICE data such as members' profile and album information</p>
+            <button className="btn btn-outline-secondary mx-2" onClick={renderMembers}>Members</button>
+            <button className="btn btn-outline-secondary mx-2" onClick={renderKoreanDiscography}>Korean</button>
+            <button className="btn btn-outline-secondary mx-2" onClick={renderJapaneseDiscography}>Japanese</button>
+            <button className="btn btn-outline-secondary mx-2" onClick={renderEnglishDiscography}>English</button>
+          </div>
+        </div>
+      </div>
+      <div className="container mt-3">
+        {renderData}
       </div>
     </div>
   );
