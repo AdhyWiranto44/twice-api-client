@@ -5,14 +5,14 @@ import DiscographyCard from './components/DiscographyCard';
 import axios from 'axios';
 
 function App() {
-  let [members, setMembers] = useState("No data");
-  let [korean, setKorean] = useState("No data");
-  let [japanese, setJapanese] = useState("No data");
-  let [english, setEnglish] = useState("No data");
-  let [renderData, setRenderData] = useState("No data");
+  const [members, setMembers] = useState("No data");
+  const [korean, setKorean] = useState("No data");
+  const [japanese, setJapanese] = useState("No data");
+  const [english, setEnglish] = useState("No data");
+  const [renderData, setRenderData] = useState("");
 
   const getMembersData = () => {
-    axios.get('http://twice-api.adhywiranto.xyz/api/members')
+    return axios.get('http://twice-api.adhywiranto.xyz/api/members')
     .then((response) => {
       let data = response['data'];
       setMembers(data);
@@ -23,7 +23,7 @@ function App() {
   }
 
   const getKoreanData = () => {
-    axios.get('http://twice-api.adhywiranto.xyz/api/discography/korean')
+    return axios.get('http://twice-api.adhywiranto.xyz/api/discography/korean')
     .then((response) => {
       let data = response['data'];
       setKorean(data);
@@ -34,7 +34,7 @@ function App() {
   }
 
   const getJapaneseData = () => {
-    axios.get('http://twice-api.adhywiranto.xyz/api/discography/japanese')
+    return axios.get('http://twice-api.adhywiranto.xyz/api/discography/japanese')
     .then((response) => {
       let data = response['data'];
       setJapanese(data);
@@ -45,7 +45,7 @@ function App() {
   }
 
   const getEnglishData = () => {
-    axios.get('http://twice-api.adhywiranto.xyz/api/discography/english')
+    return axios.get('http://twice-api.adhywiranto.xyz/api/discography/english')
     .then((response) => {
       let data = response['data'];
       setEnglish(data);
@@ -54,20 +54,18 @@ function App() {
       console.log(error);
     });
   }
-  
-  getMembersData();
-  getKoreanData();
-  getJapaneseData();
-  getEnglishData();
 
-  let renderMembers = () => {
+  const renderMembers = () => {
+    getMembersData();
     setRenderData(() => {
       return (
         <div className="row">
           <h3 className="fw-bold">Members</h3>
-          {members['data'] && members['data'].map((member) => {
+          {members['data'] && members['data'].map((member, index) => {
             return (
                 <MemberCard
+                key={member['slug'].toString()}
+                value={index+1}
                 name={member['name']}
                 img={member['img']}
                 nationality={member['nationality']}
@@ -80,14 +78,17 @@ function App() {
     });
   }
 
-  let renderKoreanDiscography = () => {
+  const renderKoreanDiscography = () => {
+    getKoreanData();
     setRenderData(() => {
       return (
         <div className="row">
           <h3 className="fw-bold">Discography (Korean)</h3>
-          {korean['data'] && korean['data'].map((release) => {
+          {korean['data'] && korean['data'].map((release, index) => {
             return (
               <DiscographyCard
+              key={release['slug'].toString()}
+              value={index+1}
               title={release['title']}
               img={release['img']}
               releaseDate={release['release_date']} />
@@ -98,14 +99,17 @@ function App() {
     })
   }
 
-  let renderJapaneseDiscography = () => {
+  const renderJapaneseDiscography = () => {
+    getJapaneseData();
     setRenderData(() => {
       return (
         <div className="row">
           <h3 className="fw-bold">Discography (Japanese)</h3>
-          {japanese['data'] && japanese['data'].map((release) => {
+          {japanese['data'] && japanese['data'].map((release, index) => {
             return (
               <DiscographyCard
+              key={release['slug'].toString()}
+              value={index+1}
               title={release['title']}
               img={release['img']}
               releaseDate={release['release_date']} />
@@ -116,14 +120,17 @@ function App() {
     })
   }
 
-  let renderEnglishDiscography = () => {
+  const renderEnglishDiscography = () => {
+    getEnglishData();
     setRenderData(() => {
       return (
         <div className="row">
           <h3 className="fw-bold">Discography (English)</h3>
-          {english['data'] && english['data'].map((release) => {
+          {english['data'] && english['data'].map((release, index) => {
             return (
               <DiscographyCard
+              key={release['slug'].toString()}
+              value={index+1}
               title={release['title']}
               img={release['img']}
               releaseDate={release['release_date']} />
@@ -145,6 +152,7 @@ function App() {
           </div>
           <div className="col-md-12 text-center">
             <p className="text-secondary h5 mb-3">Get TWICE data such as members' profile and album information</p>
+            {/* Masih harus klik 2 kali baru data muncul */}
             <button className="btn btn-outline-secondary mx-2" onClick={renderMembers}>Members</button>
             <button className="btn btn-outline-secondary mx-2" onClick={renderKoreanDiscography}>Korean</button>
             <button className="btn btn-outline-secondary mx-2" onClick={renderJapaneseDiscography}>Japanese</button>
