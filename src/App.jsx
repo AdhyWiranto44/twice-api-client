@@ -55,8 +55,14 @@ function App() {
     });
   }
 
+  (function() {
+    getMembersData()
+    getKoreanData()
+    getJapaneseData()
+    getEnglishData()
+  })()
+
   const renderMembers = () => {
-    getMembersData();
     setRenderData(() => {
       return (
         <div className="row">
@@ -79,7 +85,6 @@ function App() {
   }
 
   const renderKoreanDiscography = () => {
-    getKoreanData();
     setRenderData(() => {
       return (
         <div className="row">
@@ -100,7 +105,6 @@ function App() {
   }
 
   const renderJapaneseDiscography = () => {
-    getJapaneseData();
     setRenderData(() => {
       return (
         <div className="row">
@@ -121,7 +125,6 @@ function App() {
   }
 
   const renderEnglishDiscography = () => {
-    getEnglishData();
     setRenderData(() => {
       return (
         <div className="row">
@@ -152,11 +155,10 @@ function App() {
           </div>
           <div className="col-md-12 text-center">
             <p className="text-secondary h5 mb-3">Get TWICE data such as members' profile and album information</p>
-            {/* Masih harus klik 2 kali baru data muncul */}
-            <button className="btn btn-outline-secondary mx-2" onClick={renderMembers}>Members</button>
-            <button className="btn btn-outline-secondary mx-2" onClick={renderKoreanDiscography}>Korean</button>
-            <button className="btn btn-outline-secondary mx-2" onClick={renderJapaneseDiscography}>Japanese</button>
-            <button className="btn btn-outline-secondary mx-2" onClick={renderEnglishDiscography}>English</button>
+            <button className="btn btn-secondary mx-2 shadow-sm" onClick={renderMembers}>Members</button>
+            <button className="btn btn-secondary mx-2 shadow-sm" onClick={renderKoreanDiscography}>Korean</button>
+            <button className="btn btn-secondary mx-2 shadow-sm" onClick={renderJapaneseDiscography}>Japanese</button>
+            <button className="btn btn-secondary mx-2 shadow-sm" onClick={renderEnglishDiscography}>English</button>
           </div>
         </div>
       </div>
