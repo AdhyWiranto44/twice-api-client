@@ -9,7 +9,7 @@ export default function DiscographyCard(props) {
                 <p className="d-none">{props.value}</p>
                 <h5 className="card-title fw-bold">{props.title}</h5>
                 <p className="card-text">{props.releaseDate}</p>
-                <button className="btn btn-primary">Detail</button>
+                <button className="btn btn-light" disabled>Detail</button>
             </div>
             </div>
         </div>

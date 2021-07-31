@@ -10,7 +10,7 @@ export default function MemberCard(props) {
                 <h5 className="card-title fw-bold">{props.name}</h5>
                 <small className="card-text text-muted">{props.nationality}</small>
                 <p className="card-text">{props.position}</p>
-                <button className="btn btn-primary">Detail</button>
+                <button className="btn btn-light" disabled>Detail</button>
             </div>
             </div>
         </div>
