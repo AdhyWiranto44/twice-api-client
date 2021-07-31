@@ -95,7 +95,7 @@ function App() {
               key={release['slug'].toString()}
               value={index+1}
               title={release['title']}
-              img={release['img']}
+              img={release['album_cover']}
               releaseDate={release['release_date']} />
             );
           })}
@@ -115,7 +115,7 @@ function App() {
               key={release['slug'].toString()}
               value={index+1}
               title={release['title']}
-              img={release['img']}
+              img={release['album_cover']}
               releaseDate={release['release_date']} />
             );
           })}
@@ -135,7 +135,7 @@ function App() {
               key={release['slug'].toString()}
               value={index+1}
               title={release['title']}
-              img={release['img']}
+              img={release['album_cover']}
               releaseDate={release['release_date']} />
             );
           })}
